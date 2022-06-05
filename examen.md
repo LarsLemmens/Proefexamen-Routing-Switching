@@ -1,4 +1,6 @@
 # ROAD TO 94%
+# Credits to chepte for finding the last 4%
+
 
 ## Overzicht adressen
 
@@ -200,6 +202,12 @@ COS-ROUTER-01(config-subif)#ipv6 dhcp server VLAN20_POOL_IPV6
 COS-ROUTER-01(config-subif)# exit
 COS-ROUTER-01(config)# ip dhcp excluded-address 10.20.10.0 10.20.255.254
 
+COS-ROUTER-01(config)# ip dhcp excluded-address 10.20.0.1 10.20.0.255
+
+COS-ROUTER-01(config)# interface gigabitEthernet0/0/0.12
+COS-ROUTER-01(config-subif)# router ospf 10
+COS-ROUTER-01(config-subif)# passive-interface g0/0/0.12
+COS-ROUTER-01(config-subif)# passive-interface g0/0/0.20
 ```
 
 **_AT THIS POINT YOU SHOULD HAVE 69%_**
@@ -214,9 +222,13 @@ JYN-ROUTER-01(dhcp-config)# domain-name jynuper.local
 JYN-ROUTER-01(dhcp-config)# dns-server 10.12.0.1
 JYN-ROUTER-01(dhcp-config)# network 10.51.1.0 255.255.255.0
 JYN-ROUTER-01(dhcp-config)#ip dhcp excluded-address 10.51.1.254
+JYN-ROUTER-01(dhcp-config)# default-router 10.51.1.254
 JYN-ROUTER-01(dhcp-config)# exit
 
 JYN-ROUTER-01(config)# ip dhcp excluded-address 10.51.1.254
+
+JYN-ROUTER-01(config)# router ospf 10
+JYN-ROUTER-01(config-router)# network 84.199.169.33 0.0.0.3 area 0
 
 ```
 
