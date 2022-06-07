@@ -202,6 +202,9 @@ Router(config-subif)#ipv6 dhcp server VLAN10_POOL_IPV6
 Router(config-router)#int g0/0/2.20
 Router(config-subif)#ipv6 nd other-config-flag 
 Router(config-subif)#ipv6 dhcp server VLAN20_POOL_IPV6
+
+Router(config)#ip dhcp excluded-address 10.10.10.0 10.10.255.254
+
 ```
 
 # Port Security
