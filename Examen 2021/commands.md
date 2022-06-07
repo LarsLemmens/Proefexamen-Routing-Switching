@@ -44,7 +44,7 @@ Router(config-if)#ip address 172.16.1.1 255.255.255.252
 Router(config-if)#no shutdown
 
 Router(config-if)#interface g0/0/1
-Router(config-if)#ip address 172.16.2.2 255.255.255.252
+Router(config-if)#ip address 172.16.2.1 255.255.255.252
 Router(config-if)#no shutdown
 
 Router(config)#interface g0/0/2.10
@@ -69,6 +69,8 @@ Default Gateway: 10.40.255.254
 DNS Server: 10.30.0.100
 
 IPv6 Address 2001:DB40:ACAD:1::2/64
+Default Gateway 2001:DB40:ACAD:1::1
+DNS Server 2001:DB30:ACAD:1::100
 ```
 
 ## EHP-PC-2
@@ -80,6 +82,8 @@ Default Gateway: 10.40.255.254
 DNS Server: 10.30.0.100
 
 IPv6 Address 2001:DB40:ACAD:1::3/64
+Default Gateway 2001:DB40:ACAD:1::1
+DNS Server 2001:DB30:ACAD:1::100
 ```
 
 # COS-ACCS-1
@@ -131,6 +135,7 @@ Router(config)#router ospf 10
 Router(config-router)#network 10.30.0.0 0.0.255.255 area 0
 Router(config-router)#network 172.16.1.0 0.0.0.3 area 0
 Router(config-router)#network 172.16.3.0 0.0.0.3 area 0
+Router(config-router)#passive-interface g0/0/2
 ```
 
 ## EHP-RTR-1
@@ -140,6 +145,7 @@ Router(config)#router ospf 10
 Router(config-router)#network 10.40.0.0 0.0.255.255 area 0
 Router(config-router)#network 172.16.2.0 0.0.0.3 area 0
 Router(config-router)#network 172.16.3.0 0.0.0.3 area 0
+Router(config-router)#passive-interface g0/0/2
 ```
 
 # Links
@@ -187,4 +193,24 @@ Router(config-dhcpv6)#domain-name cosci.local
 Router(config-dhcpv6)#dns-server 2001:db30:acad:1::100
 
 Router(config)#ip dhcp excluded-address 10.20.255.254
+
+
+Router(config-subif)#int g0/0/0.10
+Router(config-subif)#ipv6 nd other-config-flag 
+Router(config-subif)#ipv6 dhcp server VLAN10_POOL_IPV6
+
+Router(config-router)#int g0/0/0.20
+Router(config-subif)#ipv6 nd other-config-flag 
+Router(config-subif)#ipv6 dhcp server VLAN20_POOL_IPV6
+```
+
+# Port Security
+
+## COS-ACCS-1
+
+```
+COS-ACCS-1(config)#int range f0/3-4
+COS-ACCS-1(config-if-range)#switchport port 
+COS-ACCS-1(config-if-range)#switchport port
+COS-ACCS-1(config-if-range)#switchport port-security 
 ```
