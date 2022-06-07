@@ -195,11 +195,11 @@ Router(config-dhcpv6)#dns-server 2001:db30:acad:1::100
 Router(config)#ip dhcp excluded-address 10.20.255.254
 
 
-Router(config-subif)#int g0/0/0.10
+Router(config-subif)#int g0/0/2.10
 Router(config-subif)#ipv6 nd other-config-flag 
 Router(config-subif)#ipv6 dhcp server VLAN10_POOL_IPV6
 
-Router(config-router)#int g0/0/0.20
+Router(config-router)#int g0/0/2.20
 Router(config-subif)#ipv6 nd other-config-flag 
 Router(config-subif)#ipv6 dhcp server VLAN20_POOL_IPV6
 ```
